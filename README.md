@@ -1,28 +1,42 @@
 # Atividade Extra - POO
 
 ## Questão 1
-Explique com suas palavras a diferença entre uma classe e um objeto e como esses dois conceitos se relacionam. Além disso, apresente um exemplo do mundo real para cada um (por exemplo, usando a classe Carro e instâncias como Fusca e Civic).
+Explique com suas palavras a diferença entre uma classe e um objeto e como  esses dois conceitos se relacionam.
 
-**Resposta**: Uma Classe é um tipo estruturado que contém atributos(características/dados) e métodos(funções), além de representarem entidades(como Produto ou Clientes). Já os Objetos, são instâncias de uma classe, representando entidades específicas com seus próprios valores de atributos. Ademais, os Objetos são declarados por meio da alocação dinâmica de memória, usando new().Desse modo, um exemplo seria através da Classe Banco, que representa a estrutura de um banco qualquer, e o objeto Conta, que carrega os atributos nome e saldo de uma entidade do Banco.
+**Classe**: Uma classe é um tipo estruturado que contém atributos (características/dados) e métodos (funções), representando entidades, como Produto ou Cliente. 
+
+**Objeto**: Um objeto é uma instância de uma classe, representando entidades específicas com seus próprios valores de atributos. Os objetos são declarados por meio da alocação dinâmica de memória, usando `new()`.
+
+### Exemplo do Mundo Real
+- **Classe**: Banco (representa a estrutura de um banco qualquer)
+- **Objeto**: Conta (carrega os atributos `nome` e `saldo` de uma entidade do banco)
+
 
 ---
 
 ## Questão 2
 De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objetos ou classes que possuam atributos e métodos.
+- **Atributos**: São variáveis que pertencem à classe, representando características ou estados dos objetos. Eles podem ser declarados com visibilidades como `Public`, `Private` ou `Protected`.
+  
+- **Métodos**: São funções pertencentes à classe, responsáveis por realizar operações, modificar atributos ou retornar valores.
 
-**Resposta**: Atributos são variáveis que pertencem à classe, representando características ou estados dos objetos.Além disso, podem ser declarados usando Public, Private ou Protected. Já os métodos, são funções que pertencem à classe e Podem realizar operações, modificar atributos e retornar valores.
+### Exemplo: Classe `Produto`
 
-**Classe**: Produto  
-- **Atributos da classe**:
-  - Nome
-  - Preço
-  - Quantidade
-- **Métodos da Classe**:
-  - Adicionar Quantia
-  - Remover Quantia
-  - Contar valor no estoque
-  - Adicionar valor no preço
-  - Decrementar valor no preço
+| **Atributos**      | **Descrição**                                                    |
+|--------------------|------------------------------------------------------------------|
+| `Nome`             | Nome do produto                                                  |
+| `Preço`            | Preço do produto                                                 |
+| `Quantidade`       | Quantidade disponível em estoque                                 |
+
+| **Métodos**                    | **Descrição**                                                                 |
+|---------------------------------|-------------------------------------------------------------------------------|
+| `Adicionar Quantia()`           | Adiciona uma quantidade ao estoque                                            |
+| `Remover Quantia()`             | Remove uma quantidade do estoque                                              |
+| `Contar valor no estoque()`     | Calcula o valor total dos produtos no estoque com base no preço e na quantidade|
+| `Adicionar valor no preço()`    | Incrementa um valor ao preço do produto                                       |
+| `Decrementar valor no preço()`  | Diminui um valor no preço do produto                                          |
+
+
  
 ---
 
@@ -41,11 +55,10 @@ De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objet
 
 ## Questão 4
 
-**a. Seria interessante em um sistema bancário um objeto "conta" possuir uma "pessoa" como um atributo interno representando o titular da conta?**
-- **Resposta**: Sim, pois toda conta precisa de alguém como representante dela, uma vez que saques e depósitos serão feitos ali e precisa de algum supervisor para maior segurança.
-
-**b. Olhando no sentido inverso, seria interessante uma pessoa possuir mais de uma conta como atributo? Que elemento da programação estruturada melhor representaria o conjunto de contas de uma pessoa?** 
-- **Resposta**: Sim, já que não há restrições para uma pessoa ter mais de uma conta em diferentes bancos. Desse modo, ter várias contas ajuda a pessoa a ser beneficiada com as vantagens de cada banco. Ademais, o elemento essencial para representar isso em POO seria um array.
+| Pergunta                                                                                       | Resposta                                                                                                                                                                                 |
+|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **a. Seria interessante em um sistema bancário um objeto "conta" possuir uma "pessoa" como um atributo interno representando o titular da conta?**  | Sim, pois toda conta precisa de alguém como representante dela, uma vez que saques e depósitos serão feitos ali e precisa de algum supervisor para maior segurança.                       |
+| **b. Olhando no sentido inverso, seria interessante uma pessoa possuir mais de uma conta como atributo? Que elemento da programação estruturada melhor representaria o conjunto de contas de uma pessoa?** | Sim, já que não há restrições para uma pessoa ter mais de uma conta em diferentes bancos. Desse modo, ter várias contas ajuda a pessoa a ser beneficiada com as vantagens de cada banco. Ademais, o elemento essencial para representar isso em POO seria um array. |
 
 ---
 
