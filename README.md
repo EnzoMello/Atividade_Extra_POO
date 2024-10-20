@@ -64,7 +64,7 @@ De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objet
 
 ## Questão 5
 
-**Identifique pelo menos 5 objetos de um sistema de controle acadêmico. Ex: aluno.
+Identifique pelo menos 5 objetos de um sistema de controle acadêmico. Ex: aluno.
 - **Respostas**: Professor, Sala, Biblioteca, Matérias e Boletim.
 
 ---
@@ -76,3 +76,17 @@ De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objet
 **Resposta**: Jogo de futebol.  
 - **Atributos**: jogadores, quantidade de torcedores, situação da partida, juíz, local, placar, bola  
 - **Métodos**: iniciar partida, intervalo, pausar partida, encerrar partida, aquecer jogador, instruir jogador, substituir jogador, expulsar jogador, mudar capitão, contar torcedores, animar torcedores, acalmar torcedores, expulsar torcedor, trocar bola, olhar VAR, alterar placar, mudar local.
+
+## Questão 10
+
+## Representação UML das Classes
+
+> Esta seção apresenta a representação UML das classes discutidas nas questões 8 e 9.
+
+![UML das Classes](https://github.com/victordev018/POO-discipline-ads/blob/main/atividades%20e%20trabalhos/java/src/extraExercise/umlImage/uml_circle_and_financialSituation_class.png?raw=true)
+
+### Descrição das Classes
+- **Circle**: Representa uma forma geométrica com um raio.
+- **FinancialSituation**: Representa a situação financeira de um indivíduo ou entidade.
+
+---
