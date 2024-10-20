@@ -83,7 +83,7 @@ Identifique pelo menos 5 objetos de um sistema de controle acadêmico. Ex: aluno
 
 > Esta seção apresenta a representação UML das classes discutidas nas questões 8 e 9.
 
-![UML das Classes](https://github.com/victordev018/POO-discipline-ads/blob/main/atividades%20e%20trabalhos/java/src/extraExercise/umlImage/uml_circle_and_financialSituation_class.png?raw=true)
+![UML das Classes](https://github.com/EnzoMello/Atividade_Extra_POO/blob/main/POO_Ads/UMl_Image/uml_circle_and_financialSituation_class.png)
 
 ### Descrição das Classes
 - **Circle**: Representa uma forma geométrica com um raio.
