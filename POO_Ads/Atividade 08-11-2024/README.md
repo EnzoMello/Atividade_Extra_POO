@@ -1,46 +1,43 @@
-# Exercício 01 – Extra 2
+# Exercício 02 
 
-## 1. Conceitos de Orientação a Objetos
+# 1. Diferença entre Tipagem Dinâmica e Tipagem Estática
 
-| Descrição                                                                                                                                               | Resposta      |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| a. É a forma de definir ou controlar a complexidade baseada em características essenciais e pela supressão ou desconsideração de detalhes em OOP.      | Abstração     |
-| b. Define que nenhum acesso direto é concedido diretamente aos dados, apenas através de métodos.                                                       | Encapsulamento |
-| c. É um recurso que serve para inicializar os atributos e é executado automaticamente sempre que um novo objeto é criado.                             | Construtor    |
+| **Tipagem**            | **Tipagem Estática**                                                                 | **Tipagem Dinâmica**                                                             |
+|------------------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| **Quando o tipo é definido** | Em tempo de **compilação**                                                        | Em tempo de **execução**                                                         |
+| **Mudança de tipo**    | Não permitida – o tipo é fixo durante a execução                                     | Permitida – variáveis podem mudar de tipo                                        |
+| **Exemplos de Linguagens** | Java, C, C++, Swift                                                               | Python, JavaScript, Ruby, PHP                                                    |
 
-## 2. Assinale V ou F
+## Vantagens e Desvantagens
 
-| Afirmação                                                                                                         | Resposta |
-|-------------------------------------------------------------------------------------------------------------------|----------|
-| Classes são instâncias de objetos;                                                                                | ( V )    |
-| Classes são apenas agrupamentos de métodos;                                                                       | ( F )    |
-| Atributos definem o estado de um objeto;                                                                         | ( V )    |
-| Métodos podem ser análogos às funções e em TypeScript e podem ser escritos dentro ou fora da classe, como em C++; | ( V )    |
-| Podemos ignorar o uso de tipos em TypeScript.                                                                    | ( F )    |
+| **Tipagem**            | **Vantagens**                                                                       | **Desvantagens**                                                                |
+|------------------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| **Estática**           | - Segurança: erros detectados em compilação <br> - Melhor performance              | - Menos flexível <br> - Exige declarações de tipo explícitas                    |
+| **Dinâmica**           | - Flexibilidade: variáveis mudam de tipo <br> - Menos código necessário            | - Erros de tipo apenas em execução <br> - Possível menor performance            |
 
+--- 
 
+## 2. Qual o principal problema do uso de tipagem dinâmica?
 
-## 3. Elementos de Orientação a Objetos
+| **Pergunta** | **Resposta** |
+|--------------|--------------|
+| **Principal problema da tipagem dinâmica** | A tipagem dinâmica permite que o tipo de uma variável mude em tempo de execução, o que pode causar **erros inesperados** que só são detectados quando o programa está sendo executado. Isso dificulta a depuração, especialmente em programas complexos, já que erros de tipo, como operações inválidas entre tipos diferentes, podem não ser detectados até o momento da execução. |
 
-| Elemento                                        | Representação               |
-|-------------------------------------------------|-----------------------------|
-| Teresina Equipamentos Hidráulicos                | Objeto                      |
-| Empresa                                         | Classe                    |
-| Nome da Empresa                                 | Atributo                      |
+---
 
-**Resposta:** E. objeto, classe e atributo
+## 4. Por que C possui tipagem fraca, mesmo com tipagem estática?
 
-## 4. Associe os números ao elemento correspondente
+| **Pergunta** | **Resposta** |
+|--------------|--------------|
+| **C possui tipagem fraca?** | Sim, C é considerado uma linguagem de **tipagem fraca** mesmo com **tipagem estática**. Isso ocorre porque C permite **conversões implícitas entre tipos** diferentes. Por exemplo, é possível somar um `int` com um `float` sem causar erro, o que pode resultar em perda de precisão ou resultados inesperados. |
+| **Exemplo** | ```c<br>int x = 10;<br>float y = 5.5;<br>int result = x + y; // Conversão implícita de 'y' para int<br>printf("%d", result); // Saída: 15 (arredondamento implícito)<br>```<br> No exemplo acima, `y` é convertido automaticamente para `int`, causando perda de precisão e retornando um valor inesperado.|
 
-| Número | Elemento                   |
-|--------|----------------------------|
-| 1      | Construtor                 |
-| 2      | Operador de instanciação    |
-| 3      | Classe                     |
-| 4      | Objeto                    |
+---
 
-**Associações:**
-- (4) Construtor
-- (3) Operador de instanciação
-- (2) Classe
-- (1) Objeto
+## 5. A tipagem do TypeScript é fraca?
+
+| **Pergunta** | **Resposta** |
+|--------------|--------------|
+| **A tipagem do TypeScript é considerada fraca?** | Não, a tipagem do TypeScript não é considerada fraca por permitir que uma variável `number` aceite tanto **inteiros quanto números de ponto flutuante**. Essa característica é normal em várias linguagens e não implica que a tipagem seja fraca, pois não há conversão automática entre tipos incompatíveis, e TypeScript mantém uma tipagem rigorosa entre tipos distintos. |
+
+---
