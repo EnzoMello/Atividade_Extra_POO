@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "outDir": "./build",                   // (a) Gera arquivos .js na pasta 'build'
+      "allowUnreachableCode": true,          // (b) Permite código inalcançável sem erro
+      "noImplicitAny": true,                 // (c) Erros para variáveis não tipadas
+      "target": "ES3",                       // (d) Compila para ES3
+      "strictNullChecks": true,              // (e) Impõe verificação estrita de null
+      "sourceMap": true                      // (f) Gera mapas de origem para depuração
+    }
+  }
+  
