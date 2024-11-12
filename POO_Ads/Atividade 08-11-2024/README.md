@@ -30,7 +30,7 @@
 | **Pergunta** | **Resposta** |
 |--------------|--------------|
 | **C possui tipagem fraca?** | Sim, C é considerado uma linguagem de **tipagem fraca** mesmo com **tipagem estática**. Isso ocorre porque C permite **conversões implícitas entre tipos** diferentes. Por exemplo, é possível somar um `int` com um `float` sem causar erro, o que pode resultar em perda de precisão ou resultados inesperados. |
-| **Exemplo** | ```c<br>int x = 10;<br>float y = 5.5;<br>int result = x + y; // Conversão implícita de 'y' para int<br>printf("%d", result); // Saída: 15 (arredondamento implícito)<br>```<br> No exemplo acima, `y` é convertido automaticamente para `int`, causando perda de precisão e retornando um valor inesperado.|
+
 
 ---
 
