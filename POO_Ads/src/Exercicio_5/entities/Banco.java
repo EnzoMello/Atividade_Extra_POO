@@ -95,4 +95,50 @@ public class Banco {
 
     }
 
+    public Conta consultaIndice(int indice){
+        if(indice > 0 && indice < contas.size()){
+            return contas.get(indice);
+        }
+        System.out.println("Conta inválida.");
+        return null;
+    }
+
+    public void excluirConta(int indice){
+        contas.remove(consultaIndice(indice));
+        System.out.println("Conta removida com sucesso");
+    }
+
+    public void atualizarConta(int numeroConta, double novoSaldo) {
+        Conta conta = consultaIndice(numeroConta);
+        if (conta != null) {
+            conta.setSaldo(novoSaldo);
+            System.out.println("Saldo da conta atualizado com sucesso.");
+        } else {
+            System.out.println("Conta não encontrada.");
+        }
+    }
+
+    public void sacar(int numeroConta, double valor) {
+        Conta conta = consultaIndice(numeroConta);
+        if (conta != null) {
+            if (conta.getSaldo() >= valor) {
+                conta.sacar(valor);
+                System.out.println("Saque realizado.");
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
+        } else {
+            System.out.println("Conta não encontrada.");
+        }
+    }
+
+    public void depositar(int numeroConta, double valor) {
+        Conta conta = consultaIndice(numeroConta);
+        if (conta != null) {
+            conta.depositar(valor);
+            System.out.println("Depósito feito.");
+        } else {
+            System.out.println("Conta não encontrada.");
+        }
+    }
 }
