@@ -1,5 +1,6 @@
 package Exercicio_5.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,10 +9,10 @@ public class Cliente {
     private int Id;
     private String nome;
     private String cpf;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private List<Conta> contas;
 
-    public Cliente(int id, String nome, String cpf, Date dataNascimento) {
+    public Cliente(int id, String nome, String cpf, LocalDate dataNascimento) {
         Id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -31,7 +32,7 @@ public class Cliente {
         return cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 

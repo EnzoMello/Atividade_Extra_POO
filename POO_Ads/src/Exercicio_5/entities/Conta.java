@@ -5,9 +5,10 @@ public class Conta {
     private double saldo;
     private int id;
 
-    public Conta(String number, double saldo){
+    public Conta(String number, double saldo, int id){
         this.number = number;
         this.saldo = saldo;
+        this.id = id;
     }
 
     public String getNumber() {
