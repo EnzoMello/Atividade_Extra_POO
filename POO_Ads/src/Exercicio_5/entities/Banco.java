@@ -108,9 +108,30 @@ public class Banco {
         return null;
     }
 
+
     public void excluirConta(int indice){
-        contas.remove(consultaIndice(indice));
-        System.out.println("Conta removida com sucesso");
+        Conta conta = consultaIndice(indice);
+        if(conta != null){
+            Cliente cliente = conta.getCliente();
+            contas.remove(conta);
+            System.out.println("Conta removida");
+
+            // verificar se o cliente da conta específica tem outras contas
+            boolean outrasContas = false;
+            for(Conta conta2 : contas){
+                if(conta2.getCliente() == cliente){
+                    outrasContas = true;
+                    break;
+                }
+            }
+
+            if(!outrasContas){
+                System.out.println("Cliente não possui outras contas, será removido.");
+                clientes.remove(cliente);
+            } else {
+                System.out.println("Cliente possui outras contas e será mantido.");
+            }
+        }
     }
 
     public void atualizarConta(int numeroConta, double novoSaldo) {
@@ -187,6 +208,28 @@ public class Banco {
         }
     }
 
+    public void ordemBancaria(String numeroOrigem, List<String> numeroDestino, double valorTotal){
+        Conta origem = consultar(numeroOrigem);
+        if(origem == null || origem.getSaldo() < valorTotal){
+            System.out.println("Conta inválida ou saldo insuficiente.");
+            return;
+        }
+
+        double valorPorConta = valorTotal / numeroDestino.size();
+        for(String numeroDestino2 : numeroDestino){
+            Conta destino = consultar(numeroDestino2);
+            if(destino != null){
+                origem.sacar(valorPorConta); // Saca o valor da conta de origem
+                destino.depositar(valorPorConta); // Deposita na conta de destino
+                System.out.println("Tranferido R$ " + valorPorConta + "para conta: " + destino);
+            } else {
+                System.out.println("Conta de destino não encontrada.");
+            }
+        }
+
+        System.out.println("Ordem bancária feita.");
+    }
+
     public int quantidadeDeContas() {
         return this.contas.size();
     }
@@ -211,6 +254,51 @@ public class Banco {
         return random.nextInt(100000000, 900000000);
     }
 
+    public void mudarTitularidade(String numeroConta, String cpfNovoTitular) {
+        Conta conta = consultar(numeroConta);
+        Cliente novoTitular = consultarCliente(cpfNovoTitular);
+
+        if (conta != null && novoTitular != null) {
+            conta.setCliente(novoTitular); // Atualiza o cliente da conta
+            System.out.println("Titular da conta atualizado com sucesso!");
+        } else {
+            System.out.println("Conta ou cliente não encontrados.");
+        }
+    }
+
+    public void excluirCliente(String cpf){
+        Cliente cliente = consultarCliente(cpf);
+        if(cliente != null){
+            for(Conta conta : contas){
+                if(conta.getCliente().equals(cliente)){
+                    conta.setCliente(null);
+                }
+            }
+            clientes.remove(cliente);
+            System.out.println("Cliente removido e contas dele desassociadas.");
+        }else{
+            System.out.println("Cliente não existe.");
+        }
+    }
+
+    public void listarContasSemCliente(){
+        Scanner sc = new Scanner(System.in);
+        for(Conta conta : contas){
+            if(conta.getCliente() == null){
+                System.out.println("Conta sem dono: " + conta.getNumber());
+                System.out.println("Digitar o CPF do novo titular: ");
+                String cpf = sc.nextLine();
+                Cliente cliente = consultarCliente(cpf);
+                if(cliente != null){
+                    conta.setCliente(cliente);
+                    System.out.println("Titular atualizado para: " + cliente.getNome());
+                } else {
+                    System.out.println("Cliente com cpf não encontrado");
+                }
+            }
+        }
+    }
+
     public void showMenu() {
         System.out.println("\nBEM-VINDO AO ENZOBANK");
         System.out.println("Escolha uma opção:");
@@ -220,6 +308,9 @@ public class Banco {
         System.out.println("=========================================================:");
         System.out.println("Opções com clientes:");
         System.out.println(" 8 - Inserir  9 - Consultar 10 - Associar");
+        System.out.println("=========================================================:");
+        System.out.println("Opções extras:");
+        System.out.println("11 - Mudar Titularidade 12 - Excluir Cliente 13 - Listar conta S/ cliente");
         System.out.println("> 0 - Sair");
     }
 
@@ -344,6 +435,24 @@ public class Banco {
                     System.out.print("CPF do cliente: ");
                     String cpfAssociarConta = sc.nextLine();
                     associarContaCliente(numeroConta10, cpfAssociarConta);
+                    break;
+
+                case 11:
+                    System.out.print("Número da conta para mudar titular: ");
+                    String numeroConta11 = sc.nextLine();
+                    System.out.print("CPF do novo titular: ");
+                    String cpfNovoTitular = sc.nextLine();
+                    mudarTitularidade(numeroConta11, cpfNovoTitular);
+                    break;
+
+                case 12:
+                    System.out.print("Número do CPF do cliente");
+                    String cpfEscolhido = sc.nextLine();
+                    excluirCliente(cpfEscolhido);
+                    break;
+
+                case 13:
+                    listarContasSemCliente();
                     break;
 
                 case 0:

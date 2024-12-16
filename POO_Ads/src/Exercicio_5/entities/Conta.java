@@ -4,6 +4,15 @@ public class Conta {
     private String number;
     private double saldo;
     private int id;
+    private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public Conta(String number, double saldo, int id){
         this.number = number;
