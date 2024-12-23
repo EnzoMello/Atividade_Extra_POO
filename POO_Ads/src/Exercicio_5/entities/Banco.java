@@ -17,10 +17,12 @@ public class Banco {
         this.clientes = new ArrayList<>();
     }
 
+    // método que adiciona um objeto conta em contas, que armazena objetos do tipo Conta
     public void inserir(Conta conta){
         this.contas.add(conta);
     }
 
+    // método para verificar se existe uma conta com um determinado numero
     public Conta consultar(String number){
         Conta contaEncontrada = null;
         for(Conta contaAtual : this.contas){
@@ -39,6 +41,7 @@ public class Banco {
         return clientes;
     }
 
+    // método que insere um cliente na lista Cliente, mas antes verifica se ele já foi cadastrado
     public void inserirCliente(Cliente cliente){
         if(clientIdOuCpfJaExiste(cliente)){
             System.out.println("cliente ja cadastrado");
@@ -47,6 +50,7 @@ public class Banco {
         this.clientes.add(cliente);
     }
 
+    // método booleano que se um cliente já foi cadastrado no sistema
     private boolean clientIdOuCpfJaExiste(Cliente cliente) {
         for(Cliente clienteAtual : this.clientes){
             if(clienteAtual.getId() == cliente.getId() || clienteAtual.getCpf().equals(cliente.getCpf())){
@@ -56,6 +60,7 @@ public class Banco {
         return false;
     }
 
+    // método que retorna um cliente com um cpf específico cadastrado
     public Cliente consultarCliente(String cpf){
         Cliente clienteEncontrado = null;
         for(Cliente clienteAtual : this.clientes){
@@ -67,6 +72,7 @@ public class Banco {
         return clienteEncontrado;
     }
 
+    // método que associa contas de cliente, mas verifica se determinada conta já nao foi associada a ele antes
     public void associarContaCliente(String numeroConta, String cpfCliente){
         // Acessar o obj cliente
         Cliente clienteEncontrado = consultarCliente( cpfCliente);
@@ -85,11 +91,13 @@ public class Banco {
         clienteEncontrado.getContas().add(contaEncontrada);
     }
 
+    // método que retorna contas associadas a um cpf
     public List<Conta> listarContasCliente(String cpf){
         Cliente cliente = consultarCliente(cpf);
         return cliente.getContas();
     }
 
+    // método que pega todas as contas de um cpf e retorna o saldo total delas
     public double totalizarSaldoCliente(String cpf){
         List<Conta> contasCliente = listarContasCliente(cpf);
         double total = 0;
@@ -100,6 +108,7 @@ public class Banco {
 
     }
 
+    // método que retorna uma conta com um indíce específico
     public Conta consultaIndice(int indice){
         if(indice > 0 && indice < contas.size()){
             return contas.get(indice);
@@ -189,11 +198,12 @@ public class Banco {
         Conta contaOrigem = consultar(numeroContaOrigem);
 
         if (contaOrigem != null) {
+            // verifica se uma conta origem tem dinheiro para transferir para várias contas
             if (contaOrigem.getSaldo() >= valor * numerosContasDestino.length) {
                 for (String numeroContaDestino : numerosContasDestino) {
-                    Conta contaDestino = consultar(numeroContaDestino);
+                    Conta contaDestino = consultar(numeroContaDestino); // verifica existência de cada conta destino
                     if (contaDestino != null) {
-                        contaOrigem.sacar(valor);
+                        contaOrigem.sacar(valor); // transfere um valor da conta origem para destino
                         contaDestino.depositar(valor);
                         System.out.println("Transferência de " + valor + " realizada para a conta " + numeroContaDestino);
                     } else {
@@ -209,18 +219,18 @@ public class Banco {
     }
 
     public void ordemBancaria(String numeroOrigem, List<String> numeroDestino, double valorTotal){
-        Conta origem = consultar(numeroOrigem);
+        Conta origem = consultar(numeroOrigem); // pega uma conta origem da lista de contas
         if(origem == null || origem.getSaldo() < valorTotal){
             System.out.println("Conta inválida ou saldo insuficiente.");
             return;
         }
 
-        double valorPorConta = valorTotal / numeroDestino.size();
+        double valorPorConta = valorTotal / numeroDestino.size(); // divide igualmente um valor para várias contas destino
         for(String numeroDestino2 : numeroDestino){
             Conta destino = consultar(numeroDestino2);
             if(destino != null){
                 origem.sacar(valorPorConta); // Saca o valor da conta de origem
-                destino.depositar(valorPorConta); // Deposita na conta de destino
+                destino.depositar(valorPorConta); // Deposita em cada conta de destino um valor igual
                 System.out.println("Tranferido R$ " + valorPorConta + "para conta: " + destino);
             } else {
                 System.out.println("Conta de destino não encontrada.");
@@ -242,6 +252,7 @@ public class Banco {
         return total;
     }
 
+    // método que pega o total de contas cadastradas e retorna a média de saldo delas
     public double mediaDeSaldos() {
         int quantidade = quantidadeDeContas();
         if (quantidade == 0) return 0; // Evitar divisão por zero
@@ -249,11 +260,13 @@ public class Banco {
         return total / quantidade;
     }
 
+    // método para gerar Ids aleatórias
     public int gerarId(){
         Random random = new Random();
         return random.nextInt(100000000, 900000000);
     }
 
+    // método que pega uma conta e um cpf, consulta existência e atualiza o cliente com conta nova
     public void mudarTitularidade(String numeroConta, String cpfNovoTitular) {
         Conta conta = consultar(numeroConta);
         Cliente novoTitular = consultarCliente(cpfNovoTitular);
@@ -262,6 +275,7 @@ public class Banco {
             conta.setCliente(novoTitular); // Atualiza o cliente da conta
             System.out.println("Titular da conta atualizado com sucesso!");
         } else {
+
             System.out.println("Conta ou cliente não encontrados.");
         }
     }
