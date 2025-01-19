@@ -52,4 +52,7 @@ public class Conta {
     public String toString(){
         return "number: " + number + ", balance: R$ " + saldo + "\n";
     }
+
+    public boolean isEmpty() {
+    }
 }

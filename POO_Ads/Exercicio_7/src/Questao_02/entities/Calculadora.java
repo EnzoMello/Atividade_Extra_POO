@@ -1,6 +1,7 @@
 package Questao_02.entities;
 
-public class Calculadora {
+public class
+Calculadora {
     private int numero01;
     private int numero02;
 
