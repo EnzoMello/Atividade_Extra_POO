@@ -1,92 +1,176 @@
-# Atividade Extra - POO
+# Exercício 8(pt.1) - POO
 
-## Questão 1
-Explique com suas palavras a diferença entre uma classe e um objeto e como  esses dois conceitos se relacionam.
+## Questão 1: Enumere os 3 tipos mais comuns de tratamento de erros e exemplifique com códigos seus ou pesquisados na internet.
 
-**Classe**: Uma classe é um tipo estruturado que contém atributos (características/dados) e métodos (funções), representando entidades, como Produto ou Cliente. 
+### 1. Bloco `try-catch` (ou `try-except`)
 
-**Objeto**: Um objeto é uma instância de uma classe, representando entidades específicas com seus próprios valores de atributos. Os objetos são declarados por meio da alocação dinâmica de memória, usando `new()`.
+O bloco `try-catch` serve para verificar exceções durante a execução do código, evitando falhas inesperadas. Um bloco `finally` também pode ser adicionado para executar código, independentemente de ocorrer erro.
 
-### Exemplo do Mundo Real
-- **Classe**: Banco (representa a estrutura de um banco qualquer)
-- **Objeto**: Conta (carrega os atributos `nome` e `saldo` de uma entidade do banco)
+```typescript
+function dividirNumeros(a: number, b: number): number {
+    if (b === 0) {
+        throw new Error("Erro: Divisão por zero não é permitida.");
+    }
+    return a / b;
+}
+
+try {
+    const resultado = dividirNumeros(10, 0); // Tentando dividir por zero
+    console.log(`Resultado: ${resultado}`);
+} catch (error) {
+    console.error("Erro capturado:", error.message); // Trata o erro de forma amigável
+} finally {
+    console.log("Operação finalizada."); // Sempre executa, independente de sucesso ou erro
+}
+```
 
 
 ---
 
-## Questão 2
-De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objetos ou classes que possuam atributos e métodos.
-- **Atributos**: São variáveis que pertencem à classe, representando características ou estados dos objetos. Eles podem ser declarados com visibilidades como `Public`, `Private` ou `Protected`.
-  
-- **Métodos**: São funções pertencentes à classe, responsáveis por realizar operações, modificar atributos ou retornar valores.
+### 2. Validação Antecipada
+A validação antecipada é usada para verificar condições antes da execução do código, prevenindo erros de forma mais eficiente.
 
-### Exemplo: Classe `Produto`
+```function calcularMedia(notas: number[]): number | string {
+    if (notas.length === 0) {
+        return "Erro: Nenhuma nota fornecida.";
+    }
 
-| **Atributos**      | **Descrição**                                                    |
-|--------------------|------------------------------------------------------------------|
-| `Nome`             | Nome do produto                                                  |
-| `Preço`            | Preço do produto                                                 |
-| `Quantidade`       | Quantidade disponível em estoque                                 |
+    const soma = notas.reduce((acumulador, nota) => acumulador + nota, 0);
+    return soma / notas.length;
+}
 
-| **Métodos**                    | **Descrição**                                                                 |
-|---------------------------------|-------------------------------------------------------------------------------|
-| `Adicionar Quantia()`           | Adiciona uma quantidade ao estoque                                            |
-| `Remover Quantia()`             | Remove uma quantidade do estoque                                              |
-| `Contar valor no estoque()`     | Calcula o valor total dos produtos no estoque com base no preço e na quantidade|
-| `Adicionar valor no preço()`    | Incrementa um valor ao preço do produto                                       |
-| `Decrementar valor no preço()`  | Diminui um valor no preço do produto                                          |
+// Testando a função
+const media1 = calcularMedia([8, 9, 7]);
+console.log(`Média: ${media1}`); // Média: 8
 
-
- 
+const media2 = calcularMedia([]);
+console.log(media2); // Erro: Nenhuma nota fornecida.
+```
 ---
 
-## Questão 3
+### 3. Retornos de Erro (Error Codes ou Objects)
 
-| Atributo                | Sistema em que não é importante        | Sistema em que é moderadamente importante | Sistema em que é essencial               |
-|-------------------------|----------------------------------------|------------------------------------------|------------------------------------------|
-| CPF                     | Eventos públicos                       | Assinatura de serviços                   | Conta Bancária                           |
-| Histórico de saúde       | Exames Simples                         | Internações curto prazo                  | Sistema Hospitalar                       |
-| Quantidade de seguidores | Supermercado                           | Redes sociais                            | Pesquisa de Influência                   |
-| Habilidade destra        | Matrícula na universidade              | Esportes                                 | Dirigir Carro                            |
-| Endereço                 | Praticar Esportes                      | Compras Online                           | Usar Correios                            |
-| Saldo em conta           | Site de igreja                         | Compras online                           | Sistema bancário                         |
-| Etnia                    | Esportes                               | Políticas públicas                       | Inscrição em cotas em concursos          |
+Este método retorna códigos ou objetos de erro para sinalizar problemas. É útil quando o tratamento de erros precisa ser feito em diferentes partes do sistema.
+```function conectarBanco(status: boolean): { sucesso: boolean; mensagem: string } {
+    if (!status) {
+        return { sucesso: false, mensagem: "Erro: Banco de dados indisponível" };
+    }
+    return { sucesso: true, mensagem: "Conexão bem-sucedida" };
+}
 
-
-## Questão 4
-
-| Pergunta                                                                                       | Resposta                                                                                                                                                                                 |
-|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **a. Seria interessante em um sistema bancário um objeto "conta" possuir uma "pessoa" como um atributo interno representando o titular da conta?**  | Sim, pois toda conta precisa de alguém como representante dela, uma vez que saques e depósitos serão feitos ali e precisa de algum supervisor para maior segurança.                       |
-| **b. Olhando no sentido inverso, seria interessante uma pessoa possuir mais de uma conta como atributo? Que elemento da programação estruturada melhor representaria o conjunto de contas de uma pessoa?** | Sim, já que não há restrições para uma pessoa ter mais de uma conta em diferentes bancos. Desse modo, ter várias contas ajuda a pessoa a ser beneficiada com as vantagens de cada banco. Ademais, o elemento essencial para representar isso em POO seria um array. |
+const resultado = conectarBanco(false);
+console.log(resultado); // Saída: { sucesso: false, mensagem: "Erro: Banco de dados indisponível" }
+```
 
 ---
-
-## Questão 5
-
-Identifique pelo menos 5 objetos de um sistema de controle acadêmico. Ex: aluno.
-- **Respostas**: Professor, Sala, Biblioteca, Matérias e Boletim.
-
+## Questão 2: Explique por que cada um dos 3 métodos acima possui limitações de uso.
+| Método de Tratamento                            | Explicação                                                                                                       |
+|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Tratamento baseado em retorno de código de erro** | Depende de valores retornados por funções para indicar sucesso ou falha. Pode ser confuso, difícil de manter e propenso a erros. Requer verificação manual em cada ponto de chamada. |
+| **Tratamento com estruturas de exceção (try-catch)** | Captura exceções em tempo de execução, mas pode afetar o desempenho e aumentar a complexidade. Se usado excessivamente, pode dificultar o debug e o tratamento adequado de falhas. |
+| **Tratamento com validações explícitas**         | Realiza verificações preventivas antes da execução, mas pode gerar redundâncias e não capturar falhas em tempo de execução. Pode levar a um design mais frágil. |
 ---
 
-## Questão 6
+## Questão 3: Com o código repassado, crie duas contas e teste o método transferir de modo que a conta a ser debitada não possua saldo suficiente. Explique o que ocorreu.
+O erro ocorre quando a conta de origem não possui saldo suficiente para realizar a transferência. Ao tentar transferir um valor superior ao saldo disponível, o método transferir lança uma exceção com a mensagem "Saldo insuficiente". Esse erro é capturado pelo bloco catch, que impede a transferência e exibe a mensagem de erro, sem alterar os saldos das contas. Portanto, a transferência não é realizada e os saldos permanecem inalterados.
+```javascript
+import { Conta } from "./banco";
 
-**Imagine um jogo qualquer. Identifique o máximo de objetos possíveis e eventuais características (atributos) e comportamentos (métodos) que eles poderiam ter.**
+// Criando contas
+var conta1 = new banco_1.Conta(1, "123", 50); 
+var conta2 = new banco_1.Conta(2, "456", 300); 
 
-**Resposta**: Jogo de futebol.  
-- **Atributos**: jogadores, quantidade de torcedores, situação da partida, juíz, local, placar, bola  
-- **Métodos**: iniciar partida, intervalo, pausar partida, encerrar partida, aquecer jogador, instruir jogador, substituir jogador, expulsar jogador, mudar capitão, contar torcedores, animar torcedores, acalmar torcedores, expulsar torcedor, trocar bola, olhar VAR, alterar placar, mudar local.
+console.log("Saldo inicial:");
+console.log("Conta 1 (Origem): R$".concat(conta1.saldo.toString()));
+console.log("Conta 2 (Destino): R$".concat(conta2.saldo.toString()));
 
-## Questão 10
+try {
+    console.log("\nTentando transferir R$100 da Conta 1 para a Conta 2...");
+    conta1.transferir(conta2, 100);  
+}
+catch (error) {
+    console.log("Erro ao realizar a transferência:", error.message); // O erro de saldo será feito aqui
+}
 
-## Representação UML das Classes
-
-> Esta seção apresenta a representação UML das classes discutidas nas questões 8 e 9.
-
-![UML das Classes](https://github.com/EnzoMello/Atividade_Extra_POO/blob/main/POO_Ads/UMl_Image/uml_circle_and_financialSituation_class.png)
-
-### Descrição das Classes
-- **Circle**: Representa uma forma geométrica com um raio.
-- **FinancialSituation**: Representa a situação financeira de um indivíduo ou entidade.
-
+console.log("\nSaldo final:");
+console.log("Conta 1 (Origem): R$".concat(conta1.saldo.toString()));
+console.log("Conta 2 (Destino): R$".concat(conta2.saldo.toString()));
+```
 ---
+## Questão 4: Instancie uma classe App e, caso necessário, crie duas contas. Acesse a opção de transferir com valor alto o suficiente para lançar uma exceção/erro. Verifique que o lançamento da exceção foi “propagado” para o método conta.transferir(), banco.transferir() e App.menu()? Como você avalia a confiabilidade dessa implementação.
+```typescript
+class App {
+    private _banco: Banco;
+
+    constructor() {
+        this._banco = new Banco();
+    }
+
+    menu() {
+        let conta1 = new Conta(1, '12345', 3500);  
+        let conta2 = new Conta(2, '67890', 1200);    
+
+        this._banco.inserirConta(conta1);
+        this._banco.inserirConta(conta2);
+
+        try {
+            // Tentando transferir 2000 da conta1 para a conta2
+            console.log("Tentando transferir 2000 da conta1 para conta2...");
+            this._banco.transferir(conta1, conta2, 2000); // Transferência com valor superior ao saldo
+        } catch (e: any) {
+            console.log("Exceção capturada no App.menu(): " + e.message); // Exceção feita
+        }
+    }
+}
+
+let app = new App();
+app.menu();
+```
+---
+## Questão 5: Crie um método chamado validaValor(valor) na que lance um erro caso o valor repassado seja menor ou igual a zero ou em formato inválido. Chame o método no construtor da classe conta para validar o saldo inicial. Chame o método também nos métodos sacar e depositar. Reexecute a classe App e chame as opções de menu que aceitam valores referentes a saldo, débito, crédito e transferir. Avalie o tratamento do erro.
+```typescript
+class Main {
+    public static main(): void {
+        console.log("\n=== Testes Simples ===");
+
+        try {
+            console.log("\nTentando criar uma conta com saldo inválido...");
+            const contaInvalida = new Conta(1, "321", -20); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao criar conta:", (error as Error).message);
+        }
+
+        let conta1 = new Conta(2, "45678", 500); // conta1 com saldo válido
+        let conta2 = new Conta(3, "87654", 1000); // conta2 com saldo válido
+
+        console.log("\nCriando duas contas com saldo válido...");
+        console.log("Contas criadas com sucesso!");
+
+        try {
+            console.log("\nTentando realizar um depósito inválido...");
+            conta1.depositar(-30); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar depósito:", (error as Error).message);
+        }
+
+        try {
+            console.log("\nTentando realizar um saque inválido...");
+            conta1.sacar(0); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar saque:", (error as Error).message);
+        }
+
+        try {
+            console.log("\nTentando realizar uma transferência inválida...");
+            const conta3 = new Conta(4, "11223", 150); // criando nova conta
+            const conta4 = new Conta(5, "44556", 300); // criando nova conta
+            conta3.transferir(conta4, -50); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar transferência:", (error as Error).message);
+        }
+
+        console.log("\n=== Testes Finalizados ===");
+    }
+}
+Main.main();
+```
