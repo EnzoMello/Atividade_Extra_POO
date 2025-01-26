@@ -1,8 +1,7 @@
 ## Questão 1 - Enumere os 3 tipos mais comuns de tratamento de erros e exemplifique com códigos seus ou pesquisados na internet.
-
+---
 ### 1. Tratamento baseado em retorno de código de erro 
-Este método retorna códigos ou objetos de erro para sinalizar problemas. É útil quando o tratamento de erros precisa ser feito em diferentes partes do sistema.
-
+Em vez de lançar exceções, algumas funções retornam códigos de erro ou objetos contendo informações sobre o erro, para que o chamador possa tratá-lo.
 ```typescript
 function conectarBanco(status: boolean): { sucesso: boolean; mensagem: string } {
     if (!status) {
@@ -18,7 +17,7 @@ console.log(resultado); // Saída: { sucesso: false, mensagem: "Erro: Banco de d
 
 ### 2. Tratamento com estruturas de exceção (try-catch)
 
-O bloco try-catch serve para verificar exceções durante a execução do código, evitando falhas inesperadas. Um bloco finally também pode ser adicionado para executar código, independentemente de ocorrer erro.
+O tratamento de erros com try-catch (ou equivalente em outras linguagens, como try-except em Python) permite capturar exceções lançadas durante a execução do código, evitando que o programa pare abruptamente.
 ```typescript
 function dividirNumeros(a: number, b: number): number {
     if (b === 0) {
@@ -39,8 +38,7 @@ try {
 ```
 
 ### 3. Tratamento com validações explícitas
-A validação antecipada é usada para verificar condições antes da execução do código, prevenindo erros de forma mais eficiente.
-
+Antes de executar um bloco de código que pode gerar erros, é comum validar as condições que podem causar problemas, prevenindo exceções.
 ```typescript
 function calcularMedia(notas: number[]): number | string {
     if (notas.length === 0) {
@@ -59,7 +57,7 @@ const media2 = calcularMedia([]);
 console.log(media2); // Erro: Nenhuma nota fornecida.
 
 ```
-
+---
 ## Questão 2 - Explique por que cada um dos 3 métodos acima possui limitações de uso.
 #### Tratamento baseado em retorno de código de erro 
 Esse método depende de valores específicos (geralmente inteiros) retornados por funções para indicar o sucesso ou falha. Sua limitação está no fato de que a interpretação dos códigos de erro pode ser confusa, e o código pode se tornar difícil de manter e propenso a erros humanos, especialmente em sistemas grandes. Além disso, a lógica de verificação de erros precisa ser realizada manualmente em cada ponto de chamada.
@@ -95,9 +93,8 @@ console.log("Conta 1 (Origem): R$".concat(conta1.saldo.toString()));
 console.log("Conta 2 (Destino): R$".concat(conta2.saldo.toString()));
 
 ````
-
+---
 ## Questão 4 - Instancie uma classe App e, caso necessário, crie duas contas. Acesse a opção de transferir com valor alto o suficiente para lançar uma exceção/erro. Verifique que o lançamento da exceção foi “propagado” para o método conta.transferir(), banco.transferir() e App.menu()? Como você avalia a confiabilidade dessa implementação.
-### <u>Resposta:</u>
 A propagação da exceção está sendo realizada corretamente. Quando ocorre um erro de saldo insuficiente, a exceção é propagada de Conta para Banco e finalmente capturada e tratada no App. A implementação é funcional e confiável para este caso simples, mas poderia ser expandida com tratamentos mais detalhados e melhorias na gestão de erros.
 ```typescript
 class App {
@@ -126,9 +123,8 @@ class App {
 let app = new App();
 app.menu();
 ```
-
+---
 ## Questão 5 - Crie um método chamado validaValor(valor) na que lance um erro caso o valor repassado seja menor ou igual a zero ou em formato inválido. Chame o método no construtor da classe conta para validar o saldo inicial. Chame o método também nos métodos sacar e depositar. Reexecute a classe App e chame as opções de menu que aceitam valores referentes a saldo, débito, crédito e transferir. Avalie o tratamento do erro.
-### <u>Resposta:</u>
 
 ````typescript
 import { Conta } from "./banco";
