@@ -1,92 +1,176 @@
-# Atividade Extra - POO
+# Atividade POO 8 - (Parte 1)
 
-## Questão 1
-Explique com suas palavras a diferença entre uma classe e um objeto e como  esses dois conceitos se relacionam.
+## Questão 1 - Enumere os 3 tipos mais comuns de tratamento de erros e exemplifique com códigos seus ou pesquisados na internet.
 
-**Classe**: Uma classe é um tipo estruturado que contém atributos (características/dados) e métodos (funções), representando entidades, como Produto ou Cliente. 
+### <u>Resposta:</u>
 
-**Objeto**: Um objeto é uma instância de uma classe, representando entidades específicas com seus próprios valores de atributos. Os objetos são declarados por meio da alocação dinâmica de memória, usando `new()`.
+### 1. Tratamento baseado em retorno de código de erro 
+Este método envolve o retorno de códigos específicos por funções para indicar sucesso ou falha.
 
-### Exemplo do Mundo Real
-- **Classe**: Banco (representa a estrutura de um banco qualquer)
-- **Objeto**: Conta (carrega os atributos `nome` e `saldo` de uma entidade do banco)
+```c
+#include <stdio.h>
 
+int abrirArquivo(const char* nomeArquivo) {
+    FILE* arquivo = fopen(nomeArquivo, "r");
+    if (arquivo == NULL) {
+        return -1; // Código de erro
+    }
+    fclose(arquivo);
+    return 0; // Sucesso
+}
 
----
+int main() {
+    if (abrirArquivo("teste.txt") == -1) {
+        printf("Erro ao abrir o arquivo.\n");
+    } else {
+        printf("Arquivo aberto com sucesso.\n");
+    }
+    return 0;
+}
+```
 
-## Questão 2
-De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um objetos ou classes que possuam atributos e métodos.
-- **Atributos**: São variáveis que pertencem à classe, representando características ou estados dos objetos. Eles podem ser declarados com visibilidades como `Public`, `Private` ou `Protected`.
-  
-- **Métodos**: São funções pertencentes à classe, responsáveis por realizar operações, modificar atributos ou retornar valores.
+### 2. Tratamento com estruturas de exceção (try-catch)
 
-### Exemplo: Classe `Produto`
+Este método separa o fluxo normal do programa do tratamento de erros, utilizando blocos como `try`, ``catch`` ou ``except``.
 
-| **Atributos**      | **Descrição**                                                    |
-|--------------------|------------------------------------------------------------------|
-| `Nome`             | Nome do produto                                                  |
-| `Preço`            | Preço do produto                                                 |
-| `Quantidade`       | Quantidade disponível em estoque                                 |
+```C
+try:
+    with open("teste.txt", "r") as arquivo:
+        conteudo = arquivo.read()
+        print("Arquivo lido com sucesso.")
+except FileNotFoundError:
+    print("Erro: Arquivo não encontrado!")
+except Exception as e:
+    print(f"Erro inesperado: {e}")
+```
 
-| **Métodos**                    | **Descrição**                                                                 |
-|---------------------------------|-------------------------------------------------------------------------------|
-| `Adicionar Quantia()`           | Adiciona uma quantidade ao estoque                                            |
-| `Remover Quantia()`             | Remove uma quantidade do estoque                                              |
-| `Contar valor no estoque()`     | Calcula o valor total dos produtos no estoque com base no preço e na quantidade|
-| `Adicionar valor no preço()`    | Incrementa um valor ao preço do produto                                       |
-| `Decrementar valor no preço()`  | Diminui um valor no preço do produto                                          |
+### 3. Tratamento com validações explícitas
+Neste caso, o código valida condições antes de realizar operações que possam falhar, reduzindo a ocorrência de erros.
 
+```C
+#include <stdio.h>
+#include <unistd.h> // Para a função access()
 
- 
----
+int main() {
+    if (access("teste.txt", F_OK) != -1) {
+        printf("O arquivo existe.\n");
+    } else {
+        printf("Erro: O arquivo não existe.\n");
+    }
+    return 0;
+}
+```
 
-## Questão 3
+## Questão 2 - Explique por que cada um dos 3 métodos acima possui limitações de uso.
+### <u>Resposta:</u>
+#### Tratamento baseado em retorno de código de erro 
+* Ele exige que o programador faça a manipulação de cada tipo de erro manualmente e, às vezes, pelo esquecimento do programador, isso pode gerar erros silenciosos. Além disso, o uso de muitos códigos de erro pode dificultar a leitura e manutenção do código, especialmente em sistemas mais complexos. A falta de padronização nos retornos também é um dos desafios.
 
-| Atributo                | Sistema em que não é importante        | Sistema em que é moderadamente importante | Sistema em que é essencial               |
-|-------------------------|----------------------------------------|------------------------------------------|------------------------------------------|
-| CPF                     | Eventos públicos                       | Assinatura de serviços                   | Conta Bancária                           |
-| Histórico de saúde       | Exames Simples                         | Internações curto prazo                  | Sistema Hospitalar                       |
-| Quantidade de seguidores | Supermercado                           | Redes sociais                            | Pesquisa de Influência                   |
-| Habilidade destra        | Matrícula na universidade              | Esportes                                 | Dirigir Carro                            |
-| Endereço                 | Praticar Esportes                      | Compras Online                           | Usar Correios                            |
-| Saldo em conta           | Site de igreja                         | Compras online                           | Sistema bancário                         |
-| Etnia                    | Esportes                               | Políticas públicas                       | Inscrição em cotas em concursos          |
+#### Tratamento com estruturas de exceção (try-catch)
+* Esse método pode adicionar uma sobrecarga de desempenho, já que lançar e capturar exceções pode ser mais custoso que outras abordagens. Além disso, o uso excessivo ou inadequado de exceções, como lançar exceções para situações previsíveis, pode tornar o código confuso. Em projetos grandes, o rastreamento de onde o erro foi gerado e como ele é tratado pode se tornar difícil se o código não for bem organizado.
 
+#### Tratamento com validações explícitas
+* Esse método exige que o programador antecipe todas as possíveis falhas, o que pode ser impraticável em sistemas dinâmicos ou imprevisíveis. Além disso, o código pode se tornar muito verboso devido à necessidade de muitas verificações, comprometendo a legibilidade. Por fim, validações explícitas não protegem contra erros que não podem ser previstos ou que ocorrem em tempo de execução. 
 
-## Questão 4
+## Questão 3 - Com o código repassado, crie duas contas e teste o método transferir de modo que a conta a ser debitada não possua saldo suficiente. Explique o que ocorreu.
 
-| Pergunta                                                                                       | Resposta                                                                                                                                                                                 |
-|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **a. Seria interessante em um sistema bancário um objeto "conta" possuir uma "pessoa" como um atributo interno representando o titular da conta?**  | Sim, pois toda conta precisa de alguém como representante dela, uma vez que saques e depósitos serão feitos ali e precisa de algum supervisor para maior segurança.                       |
-| **b. Olhando no sentido inverso, seria interessante uma pessoa possuir mais de uma conta como atributo? Que elemento da programação estruturada melhor representaria o conjunto de contas de uma pessoa?** | Sim, já que não há restrições para uma pessoa ter mais de uma conta em diferentes bancos. Desse modo, ter várias contas ajuda a pessoa a ser beneficiada com as vantagens de cada banco. Ademais, o elemento essencial para representar isso em POO seria um array. |
+### <u>Resposta:</u>
+O código abaixo tenta realizar uma transferência de R$200 da Conta 1 para a Conta 2. No entanto, a Conta 1 possui apenas R$100, o que significa que ela não tem saldo suficiente para concluir a operação. Ao tentar executar a transferência, o código detecta o saldo insuficiente e lança uma exceção. Essa exceção é capturada pelo bloco ``catch``, que então exibe a mensagem: ``"Erro ao realizar a transferência:"``, seguida pela descrição do erro, representada por ``(error as Error).message``
+````typescript
+import { Conta} from './banco'; // Importação correta
 
----
+// Criando duas contas
+let conta1 = new Conta(1, "123", 100); // Conta com saldo insuficiente
+let conta2 = new Conta(2, "456", 500); // Conta de destino
 
-## Questão 5
+// Exibindo os saldos iniciais
+console.log("Saldo inicial:");
+console.log(`Conta 1 (Origem): R$${conta1.saldo}`);
+console.log(`Conta 2 (Destino): R$${conta2.saldo}`);
 
-Identifique pelo menos 5 objetos de um sistema de controle acadêmico. Ex: aluno.
-- **Respostas**: Professor, Sala, Biblioteca, Matérias e Boletim.
+// Tentando realizar a transferência
+try {
+    console.log("\nTentando transferir R$200 da Conta 1 para a Conta 2...");
+    conta1.transferir(conta2, 200);
+} catch (error) {
+    console.log("Erro ao realizar a transferência:", (error as Error).message);
+}
 
----
+// Exibindo os saldos finais
+console.log("\nSaldo final:");
+console.log(`Conta 1 (Origem): R$${conta1.saldo}`);
+console.log(`Conta 2 (Destino): R$${conta2.saldo}`);
+````
 
-## Questão 6
+## Questão 4 - Instancie uma classe App e, caso necessário, crie duas contas. Acesse a opção de transferir com valor alto o suficiente para lançar uma exceção/erro. Verifique que o lançamento da exceção foi “propagado” para o método conta.transferir(), banco.transferir() e App.menu()? Como você avalia a confiabilidade dessa implementação.
+### <u>Resposta:</u>
+A implementação está funcional, mas a propagação de exceções poderia ser mais controlada. A falta de validações mais robustas e de controle transacional nas transferências pode causar problemas em casos de erro. Melhorias nesses pontos tornariam o sistema mais confiável.
+```typescript
+let app = new App();
 
-**Imagine um jogo qualquer. Identifique o máximo de objetos possíveis e eventuais características (atributos) e comportamentos (métodos) que eles poderiam ter.**
+let conta1 = new Conta(1, '12345', 1000);  
+let conta2 = new Conta(2, '67890', 500);   
 
-**Resposta**: Jogo de futebol.  
-- **Atributos**: jogadores, quantidade de torcedores, situação da partida, juíz, local, placar, bola  
-- **Métodos**: iniciar partida, intervalo, pausar partida, encerrar partida, aquecer jogador, instruir jogador, substituir jogador, expulsar jogador, mudar capitão, contar torcedores, animar torcedores, acalmar torcedores, expulsar torcedor, trocar bola, olhar VAR, alterar placar, mudar local.
+app._banco.inserirConta(conta1);
+app._banco.inserirConta(conta2);
 
-## Questão 10
+try {
+    console.log("Tentando transferir 1500 da conta1 para conta2...");
+    app.transferir();
+} catch (e: any) {
+    console.log("Exceção capturada no App.menu(): " + e.message);
+}
+```
 
-## Representação UML das Classes
+## Questão 5 - Crie um método chamado validaValor(valor) na que lance um erro caso o valor repassado seja menor ou igual a zero ou em formato inválido. Chame o método no construtor da classe conta para validar o saldo inicial. Chame o método também nos métodos sacar e depositar. Reexecute a classe App e chame as opções de menu que aceitam valores referentes a saldo, débito, crédito e transferir. Avalie o tratamento do erro.
+### <u>Resposta:</u>
 
-> Esta seção apresenta a representação UML das classes discutidas nas questões 8 e 9.
+````typescript
+import { Conta } from "./banco";
 
-![UML das Classes](https://github.com/EnzoMello/Atividade_Extra_POO/blob/main/POO_Ads/UMl_Image/uml_circle_and_financialSituation_class.png)
+class Main {
+    public static main(): void {
+        console.log("\n=== Testes Simples ===");
 
-### Descrição das Classes
-- **Circle**: Representa uma forma geométrica com um raio.
-- **FinancialSituation**: Representa a situação financeira de um indivíduo ou entidade.
+        try {
+            console.log("\nTentando criar uma conta com saldo inválido...");
+            const contaInvalida = new Conta(1, "123", -50); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao criar conta:", (error as Error).message);
+        }
 
----
+        let conta1 = new Conta(2, "456", 200); // declaração única
+        let conta2 = new Conta(3, "789", 300); // declaração única
+
+        console.log("\nCriando duas contas com saldo válido...");
+        console.log("Contas criadas com sucesso!");
+
+        try {
+            console.log("\nTentando realizar um depósito inválido...");
+            conta1.depositar(-50); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar depósito:", (error as Error).message);
+        }
+
+        try {
+            console.log("\nTentando realizar um saque inválido...");
+            conta1.sacar(0); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar saque:", (error as Error).message);
+        }
+
+        try {
+            console.log("\nTentando realizar uma transferência inválida...");
+            const conta3 = new Conta(4, "111", 100); // criando novas instâncias
+            const conta4 = new Conta(5, "222", 50); // criando novas instâncias
+            conta3.transferir(conta4, -50); // Deve lançar erro
+        } catch (error) {
+            console.error("Erro ao realizar transferência:", (error as Error).message);
+        }
+
+        console.log("\n=== Testes Finalizados ===");
+    }
+}
+
+Main.main();
+````
