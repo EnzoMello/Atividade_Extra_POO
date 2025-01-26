@@ -53,6 +53,5 @@ public class Conta {
         return "number: " + number + ", balance: R$ " + saldo + "\n";
     }
 
-    public boolean isEmpty() {
-    }
+
 }

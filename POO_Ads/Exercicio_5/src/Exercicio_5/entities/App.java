@@ -19,20 +19,23 @@ public class App {
             System.out.println("\nBem-vindo ao Banco!\nEscolha uma opção:");
 
             // Exibindo o menu em formato tabular
-            System.out.println("\n╔══════════════╦══════════════════════════════════════════╗");
-            System.out.println("║ Contas       ║ Clientes                                  ║");
-            System.out.println("╠══════════════╬══════════════════════════════════════════╣");
-            System.out.printf("║ 1 - Inserir  ║ 8 - Inserir Cliente                      ║\n");
-            System.out.printf("║ 2 - Consultar║ 9 - Consultar Cliente                     ║\n");
-            System.out.printf("║ 3 - Sacar    ║ 10 - Associar Cliente à Conta             ║\n");
-            System.out.printf("║ 4 - Depositar║ 11 - Criar Poupança                       ║\n");
-            System.out.printf("║ 5 - Excluir  ║ 12 - Render Juros                         ║\n");
-            System.out.printf("║ 6 - Transferir║ 13 - Criar ContaImposto                  ║\n");
-            System.out.printf("║ 7 - Totalizações║14 - Descontar ContaImposto             ║\n");
-            System.out.printf("║                 ║ 15 - Carregar contas arquivo            ║\n");
-            System.out.println("╠══════════════╬══════════════════════════════════════════╣");
-            System.out.printf("║ 0 - Sair     ║                                          ║\n");
-            System.out.println("╚══════════════╩══════════════════════════════════════════╝");
+            System.out.println(
+                    "\n╔══════════════╦══════════════════════════════════════════╗\n" +
+                            "║ Contas       ║ Clientes                                 ║\n" +
+                            "╠══════════════╬══════════════════════════════════════════╣\n" +
+                            "║ 1 - Inserir  ║ 8 - Inserir Cliente                      ║\n" +
+                            "║ 2 - Consultar║ 9 - Consultar Cliente                    ║\n" +
+                            "║ 3 - Sacar    ║ 10 - Associar Cliente à Conta            ║\n" +
+                            "║ 4 - Depositar║ 11 - Criar Poupança                      ║\n" +
+                            "║ 5 - Excluir  ║ 12 - Render Juros                        ║\n" +
+                            "║ 6 - Transferir║ 13 - Criar ContaImposto                 ║\n" +
+                            "║ 7 - Totalizações║14 - Descontar ContaImposto            ║\n" +
+                            "║                 ║ 15 - Carregar contas arquivo          ║\n" +
+                            "╠══════════════╬══════════════════════════════════════════╣\n" +
+                            "║ 0 - Sair     ║                                          ║\n" +
+                            "╚══════════════╩══════════════════════════════════════════╝"
+            );
+
 
             opcao = scanner.nextInt();
 
